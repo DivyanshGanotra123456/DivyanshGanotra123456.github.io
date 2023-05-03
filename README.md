@@ -112,20 +112,8 @@ is some exception it will return an error and do not store values in the databas
 # Login page
 Initially request.method is not 'POST' so it will return render_template('login.html') 
 
-$(document).ready(function () {
-  $("form").submit(function (event) {
-    if ($("#username").val() == "") {
-      alert("Please Enter User Name");
-      return false;
-    }
-    if ($("#password").val() == "") {
-      alert("Please Enter Password");
-      return false;
-    }
-    var formData = {
-      fname: $("#username").val(),
-      password: $("#password").val(),
-    };
+![image](https://user-images.githubusercontent.com/110733562/235906206-9ceff55e-b1d6-4448-b817-4f2f84e521e5.png)
+
     It will use javascript code in JS where it will check whether the form is empty or not if empty it will show alert and do not proceed further.
     formdata is used to send the request to the server.which will compare fname and password with database query= query="select * from users where username='"+fname+"' and password='"+password+"'"
     If username password does not match it will  message='Invalid Username/Password'
@@ -135,16 +123,9 @@ $(document).ready(function () {
     
     
   # Extractive summarization for addition of the book
-    ![image](https://user-images.githubusercontent.com/110733562/235877650-d1b920f0-8235-410f-ba30-641e802a2dce.png)
-This above is the webpage design of newbook.html in which i used to add new books in the basic_structure.html first i will explain you about extractive summarization method i used method is stored in summarization.py and then i import this function in python flask file by applying url link in the webpage it will trigger the 
-@app.route('/callbook',methods=['GET','POST'])
-def summarize():
-    if request.method=='POST':
-        url=request.form['bookurl']
-        summary=summarization.getdata(url)
-        return render_template('new_book.html',summary=summary)
-    else:
-        return render_template('new_book.html')
+    i used to add new books in the basic_structure.html first i will explain you about extractive summarization method i used method is 
+    stored in summarization.py and then i import this function in python flask file by applying url link in the webpage it will trigger the 
+![image](https://user-images.githubusercontent.com/110733562/235907700-a4abe370-09a0-44f1-937f-43d2435a56a1.png)
 
 If there is summary it will render summary as well otherwise empty column.
 
@@ -187,36 +168,10 @@ using hover property a form for change password appears which is used to change 
 <li><a onclick=openModal() href="{{url_for('changepassword1')}}">Change Password2</a></li>
 it will trigger ('/change_password')
 fname = session.get('fname')//It is used to set the username of the user who is using the website.
- cursor=con.cursor(dictionary=True)
-                query="select * from users where username='"+fname+"' and password='"+password_old+"'"
-                try:
-                    cursor.execute(query)
-                except:
-                    message='Invalid Old Password'
-                    render_template('basic_structure.html',message=message)
-                records=cursor.fetchall()
-                data=cursor.rowcount
-                print('data')
-                cursor.close()
-                uid=0
-                for row in records:
-                    uid=row['userid']
-                if data>0:
-                    session['fname']=fname
-                    session['uid']=uid
-                    cursor=con.cursor(dictionary=True)
-                    query="update users set password = '"+ password_new +"' where username='"+fname+"' and password='"+password_old+"'"
-                    cursor.execute(query)
-                    print(query)
-                    con.commit()
-                    print(1)
-                    cursor.close()
-                    print(2)
-                    message='Password Updated sucessfully'
-                    print(message)
-                    books = homepage()
-                    print(books)
-                    return render_template('basic_structure.html',var_books1=books, title='Home Page',fname=session.get('fname'))
+![image](https://user-images.githubusercontent.com/110733562/235907104-0c9f3b71-26be-4e60-85c5-463e5b7f682e.png)
+
+
+ 
  The whole code above will update the new password and store the new password in the database.
  var_books1=books is used to call all the books stored in the database using jinja template.
  
@@ -252,48 +207,14 @@ The secure_filename function from the werkzeug.utils module is then used to ensu
 The file is then saved to the specified directory using the file.save method. Finally, the image_path variable is set to the path of the saved image, and stored in the user's session for later use. The cursor object is then created to interact with the database.
 Then using jinja template it will further store profile picture on other pages.
 To store the profile photo with username we need to attach the string 
-<div id="menu2" style="font-weight:bold">
-            {% if image_path %}
-            <img src="{{ image_path }}" style="width: 70px;height:70px;" id="profile-pic" name="image"/>
-          {% else %}
-            <img src="{{ url_for('static', filename='images/profile2.jpg') }}" style="width: 70px;height:70px;" id="profile-pic" name="image"/>
-          {% endif %}
-            
-            {% if fname %}
-            {{fname}}
-            {% endif %}
-            {% if uid %}
-            <input type="hidden"  value="{{uid}}">
-            {% endif %}
-        </div>
+
         
  return render_template('basic_structure.html', var_books1=books,fname=session.get('fname'),image_path=session.get('file')) to call username and profile photo
  
  
  # searchbar
- @app.route('/search', methods=['GET', 'POST'])
-def search():
-    if request.method == 'POST':
-        search_category = request.form['search-category']
-        search_term = request.form['search-term']
-        cursor = con.cursor()
-        if search_category == 'book-title':
-            query = "SELECT booktitle, author, genre, imgname FROM books WHERE booktitle LIKE %s"
-            search_term = '%' + search_term + '%'
-            cursor.execute(query, (search_term,))
-        elif search_category == 'author':
-            query = "SELECT booktitle, author, genre, imgname FROM books WHERE author LIKE %s"
-            search_term = '%' + search_term + '%'
-            cursor.execute(query, (search_term,))
-        elif search_category == 'genre':
-            query = "SELECT booktitle, author, genre, imgname FROM books WHERE genre LIKE %s"
-            search_term = '%' + search_term + '%'
-            cursor.execute(query, (search_term,))
-        else:
-            return render_template('empty.html')
-        result = cursor.fetchall()
-        if not result:
-            return render_template('empty.html')
+![image](https://user-images.githubusercontent.com/110733562/235908351-22e3291b-88b3-4b7f-86d3-56ea10167a36.png)
+
        
 
 Flask handles POST request sent to the server when the user searches for a book. Then use the cursor.cor() to execute the sql query. which retrieves the search category and search term 
