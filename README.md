@@ -168,17 +168,6 @@ appears and position of the sentence.
 4. Sentence scoring: This method gives score to each sentence in a
 document based on the importance of the overall meaning of the
 Generation of an Idea
-
-Literature and Technical Survey
-
-Theoretical design of an artifact i.e.
-software to design website
-
-Development of an artifact
-
-Refinement and improvement of
-the artifact
-
 text. The sentences with high scores are selected to form the
 summary. It allows important information to be extracted from the
 data. By carefully selecting the sentence based on the high score.
